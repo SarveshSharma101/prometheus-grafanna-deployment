@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: k8-servicemonitor
+  labels:
+    app: prometheus
+spec:
+  endpoints:
+  - interval: 30s
+    port: 'http-metrics'
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: 'kube-state-metrics'
+  namespaceSelector:
+    matchNames:
+      - kube-system
